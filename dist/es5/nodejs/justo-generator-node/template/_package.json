@@ -1,0 +1,50 @@
+{
+  "name": "${dir.name}",
+  "version": "0.1.0",
+  "description": "${scope.desc}",
+  "homepage": "${scope.homepage}",
+  "author": {
+    "name": "${scope.author}",
+    "email": "${scope.authorEmail}",
+    "url": "${scope.authorUrl}"
+  },
+  "contributors": [
+    {
+      "name": "",
+      "email": "",
+      "url": ""
+    }
+  ],
+  "keywords": [],
+  "bugs": {
+    "url": "",
+    "email": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "engines": {
+    "node": ">= 5.0.0",
+    "npm": ">= 3.0.0"
+  },
+  "dependencies": {},
+  "peerDependencies": {},
+  "devDependencies": {
+    "babel-preset-es2015": "*",
+    "justo": "*",
+    "justo-assert": "*",
+    "justo-plugin-babel": "*",
+    "justo-plugin-fs": "*",
+    "justo-plugin-jshint": "*",
+    "justo-plugin-npm": "*"
+  },
+  "preferGlobal": false,
+  "main": "index.js",
+  "files": [
+    "lib/",
+  ],
+  "scripts": {
+    "test": "justo test"
+  }
+}
