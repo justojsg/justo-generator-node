@@ -1,3 +1,3 @@
-## ${dir.name}
+## {{dir.name}}
 
-${scope.desc}
+{{scope.desc}}

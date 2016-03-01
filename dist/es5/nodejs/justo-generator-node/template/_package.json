@@ -1,12 +1,12 @@
 {
-  "name": "${dir.name}",
+  "name": "{{dir.name}}",
   "version": "0.1.0",
-  "description": "${scope.desc}",
-  "homepage": "${scope.homepage}",
+  "description": "{{scope.desc}}",
+  "homepage": "{{scope.homepage}}",
   "author": {
-    "name": "${scope.author}",
-    "email": "${scope.authorEmail}",
-    "url": "${scope.authorUrl}"
+    "name": "{{scope.author}}",
+    "email": "{{scope.authorEmail}}",
+    "url": "{{scope.authorUrl}}"
   },
   "contributors": [
     {
@@ -42,7 +42,7 @@
   "preferGlobal": false,
   "main": "index.js",
   "files": [
-    "lib/",
+    "lib/"
   ],
   "scripts": {
     "test": "justo test"

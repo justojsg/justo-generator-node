@@ -36,15 +36,15 @@ catalog.workflow({name: "build", desc: "Build the package"}, function() {
     "Create package",
     {
       src: "build/es5/index.js",
-      dst: "dist/es5/nodejs/${dir.name}/"
+      dst: "dist/es5/nodejs/{{dir.name}}/"
     },
     {
       src: "build/es5/lib/",
-      dst: "dist/es5/nodejs/${dir.name}/lib"
+      dst: "dist/es5/nodejs/{{dir.name}}/lib"
     },
     {
       src: ["package.json", "README.md", "template/"],
-      dst: "dist/es5/nodejs/${dir.name}/"
+      dst: "dist/es5/nodejs/{{dir.name}}/"
     }
   );
 });
@@ -56,8 +56,8 @@ catalog.macro({name: "test", desc: "Unit testing"}, {
 
 catalog.workflow({name: "publish", desc: "NPM publish."}, function() {
   publish("Publish in NPM", {
-    who: "${scope.npmWho}",
-    src: "dist/es5/nodejs/${dir.name}"
+    who: "{{scope.npmWho}}",
+    src: "dist/es5/nodejs/{{dir.name}}"
   });
 });
 
