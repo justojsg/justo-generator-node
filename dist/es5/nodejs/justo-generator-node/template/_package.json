@@ -2,11 +2,11 @@
   "name": "{{dir.name}}",
   "version": "0.1.0",
   "description": "{{scope.desc}}",
-  "homepage": "{{scope.homepage}}",
+  "homepage": "{{http scope.homepage}}",
   "author": {
     "name": "{{scope.author}}",
     "email": "{{scope.authorEmail}}",
-    "url": "{{scope.authorUrl}}"
+    "url": "{{http scope.authorUrl}}"
   },
   "contributors": [
     {
@@ -17,12 +17,12 @@
   ],
   "keywords": [],
   "bugs": {
-    "url": "",
-    "email": ""
+    "url": "{{http scope.bugsUrl}}",
+    "email": "{{scope.bugsEmail}}"
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "{{scope.gitUrl}}"
   },
   "engines": {
     "node": ">= 5.0.0",
@@ -42,6 +42,9 @@
   "preferGlobal": false,
   "main": "index.js",
   "files": [
+    {{#if (eq scope.type "app")}}
+    "bin/",
+    {{/if}}
     "lib/"
   ],
   "scripts": {

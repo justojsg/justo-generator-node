@@ -56,8 +56,10 @@ catalog.macro({name: "test", desc: "Unit testing"}, {
 
 catalog.workflow({name: "publish", desc: "NPM publish."}, function() {
   publish("Publish in NPM", {
+    {{#if scope.npmWho}}
     who: "{{scope.npmWho}}",
-    src: "dist/es5/nodejs/{{dir.name}}"
+    {{/if}}
+    src: "dist/es5/nodejs/{{dir.name}}/"
   });
 });
 
