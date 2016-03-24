@@ -6,6 +6,7 @@ const copy = require("justo-plugin-fs").copy;
 const clean = require("justo-plugin-fs").clean;
 const jshint = require("justo-plugin-jshint");
 const publish = require("justo-plugin-npm").publish;
+const install = require("justo-plugin-npm").install;
 
 //catalog
 catalog.workflow({name: "build", desc: "Build the package"}, function() {
@@ -24,7 +25,7 @@ catalog.workflow({name: "build", desc: "Build the package"}, function() {
     preset: "es2015",
     files: [
       {src: "index.js", dst: "build/es5/"},
-      {src: "lib/", dst: "build/es5/lib/"}
+      {src: "lib/", dst: "build/es5/lib"}
     ]
   });
 
@@ -58,6 +59,13 @@ catalog.workflow({name: "publish", desc: "NPM publish."}, function() {
   publish("Publish in NPM", {
     who: "justojs",
     src: "dist/es5/nodejs/justo-generator-node"
+  });
+});
+
+catalog.workflow({name: "install", desc: "Install the generator to test."}, function() {
+  install("Install", {
+    pkg: "dist/es5/nodejs/justo-generator-node/",
+    global: true
   });
 });
 
