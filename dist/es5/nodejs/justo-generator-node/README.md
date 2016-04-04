@@ -10,16 +10,6 @@ Generator for *Node.js*.
 npm install -g justo-generator-node
 ```
 
-## Parameters
+## Note
 
-To list the parameters:
-
-```
-justo -g node help
-```
-
-Example:
-
-```
-justo -g node type:lib
-```
+The directory must be empty or this can contain the `.git` directory and/or the `README.md` file.

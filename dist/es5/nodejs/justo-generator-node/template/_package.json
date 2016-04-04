@@ -10,9 +10,9 @@
   },
   "contributors": [
     {
-      "name": "",
-      "email": "",
-      "url": ""
+      "name": "{{scope.contributor}}",
+      "email": "{{scope.contributorEmail}}",
+      "url": "{{scope.contributorUrl}}"
     }
   ],
   "keywords": [],
