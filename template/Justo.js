@@ -43,7 +43,7 @@ catalog.workflow({name: "build", desc: "Build the package"}, function() {
       dst: "dist/es5/nodejs/{{dir.name}}/lib"
     },
     {
-      src: ["package.json", "README.md", "template/"],
+      src: ["package.json", "README.md"],
       dst: "dist/es5/nodejs/{{dir.name}}/"
     }
   );
