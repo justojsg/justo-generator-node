@@ -17,7 +17,6 @@
             "composite": "cyan"
           },
           "result": {
-            "location": "pre",
             "between": ["[ ", " ]"],
             "ok": {
               "text": "OK",

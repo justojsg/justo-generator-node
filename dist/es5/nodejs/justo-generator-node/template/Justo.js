@@ -17,6 +17,7 @@ catalog.workflow({name: "build", desc: "Build the package"}, function() {
     output: true,
     src: [
       "index.js",
+      "Justo.js",
       "lib/",
       "test/unit/index.js",
       "test/unit/lib/"
