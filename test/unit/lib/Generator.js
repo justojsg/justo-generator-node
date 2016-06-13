@@ -42,6 +42,7 @@ suite("Generator", function() {
       file(DST, "Justo.js").must.exist();
       file(DST, "Justo.json").must.exist();
       file(DST, "package.json").must.exist();
+      file(DST, "package.json").json.must.have({main: "index.js"});
       file(DST, "README.md").must.exist();
       dir(DST, "test/unit/data").must.exist();
       dir(DST, "test/unit/lib").must.exist();
@@ -60,6 +61,7 @@ suite("Generator", function() {
       file(DST, "Justo.js").must.exist();
       file(DST, "Justo.json").must.exist();
       file(DST, "package.json").must.exist();
+      file(DST, "package.json").json.must.have({main: "bin/test.js"});
       file(DST, "README.md").must.exist();
       dir(DST, "bin").must.exist();
       file(DST, "bin/test.js").must.exist();

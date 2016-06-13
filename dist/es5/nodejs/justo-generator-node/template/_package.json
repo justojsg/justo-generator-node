@@ -40,7 +40,7 @@
     "justo-plugin-npm": "*"
   },
   "preferGlobal": false,
-  "main": "index.js",
+  "main": "{{iif (eq scope.type 'app') (concat 'bin/' scope.bin) 'index.js'}}",
   "files": [
     {{#if (eq scope.type "app")}}
     "bin/",
