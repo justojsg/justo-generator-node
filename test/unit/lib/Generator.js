@@ -49,8 +49,8 @@ suite("Generator", function() {
       dir(DST, "bin").must.not.exist();
     });
 
-    test("generate(answers)", function() {
-      gen.generate({type: "app"});
+    test("generate(answers) - app", function() {
+      gen.generate({type: "app", bin: "test.js"});
 
       file(DST, ".editorconfig").must.exist();
       file(DST, ".gitignore").must.exist();
@@ -61,6 +61,8 @@ suite("Generator", function() {
       file(DST, "Justo.json").must.exist();
       file(DST, "package.json").must.exist();
       file(DST, "README.md").must.exist();
+      dir(DST, "bin").must.exist();
+      file(DST, "bin/test.js").must.exist();
       dir(DST, "test/unit/data").must.exist();
       dir(DST, "test/unit/lib").must.exist();
       file(DST, "test/unit/index.js").must.exist();

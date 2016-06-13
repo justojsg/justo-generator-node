@@ -41,6 +41,7 @@ var _justoGenerator = require("justo-generator");function _classCallCheck(instan
 
 
 
+
     {
       _get(Object.getPrototypeOf(_class.prototype), "init", this).call(this);} }, { key: "fin", value: function fin() 
 
@@ -83,7 +84,7 @@ var _justoGenerator = require("justo-generator");function _classCallCheck(instan
         this.input("contributorUrl");}
 
 
-      this.list("type");
+      if (this.list("type") == "app") this.input("bin");
 
       if (this.input("gitUrl")) {
         var re = /http[s]:\/\/github\.com\/([^\/]+\/[^\/]+).git/;
@@ -108,8 +109,12 @@ var _justoGenerator = require("justo-generator");function _classCallCheck(instan
       this.template("Justo.js", answers);
       this.copy("Justo.json");
       this.template("README.md", answers);
+      if (answers.type == "app") {
+        this.mkdir("bin");
+        this.copy("bin/script.js", answers.bin);}
+
       this.mkdir("lib");
       this.mkdir("test/unit/data");
       this.mkdir("test/unit/lib");
       this.template("test/unit/index.js");
-      this.mkdirIf(answers.type == "app", "bin");} }, { key: "desc", get: function get() {return "Generator for Node.js.";} }, { key: "params", get: function get() {return { type: { title: "Software type", choices: ["app", "lib"] }, author: "Author name", authorEmail: "Author email", authorUrl: "Author homepage", contributor: "Contributor name", contributorEmail: "Contributor email", contributorUrl: "Contributor homepage", homepage: "Project homepage", desc: "Project description", npmWho: "NPM user to use for publishing", gitUrl: "Git URL", travisCi: "Travis CI", davidDm: "David DM", bugsUrl: "Bugs URL", bugsEmail: "Bugs email" };} }]);return _class;}(_justoGenerator.HandlebarsGenerator);exports.default = _class;
+      this.mkdirIf(answers.type == "app", "bin");} }, { key: "desc", get: function get() {return "Generator for Node.js.";} }, { key: "params", get: function get() {return { type: { title: "Software type", choices: ["app", "lib"] }, bin: "App/bin script name", author: "Author name", authorEmail: "Author email", authorUrl: "Author homepage", contributor: "Contributor name", contributorEmail: "Contributor email", contributorUrl: "Contributor homepage", homepage: "Project homepage", desc: "Project description", npmWho: "NPM user to use for publishing", gitUrl: "Git URL", travisCi: "Travis CI", davidDm: "David DM", bugsUrl: "Bugs URL", bugsEmail: "Bugs email" };} }]);return _class;}(_justoGenerator.HandlebarsGenerator);exports.default = _class;
