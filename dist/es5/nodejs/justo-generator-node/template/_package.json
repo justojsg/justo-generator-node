@@ -29,14 +29,18 @@
     "npm": ">= 3.0.0"
   },
   "dependencies": {},
-  "peerDependencies": {},
   "devDependencies": {
-    "babel-preset-es2015": "*",
+    "babel-preset-{{lowercase scope.jsSpec}}": "*",
     "justo": "*",
     "justo-assert": "*",
     "justo-plugin-babel": "*",
+    {{#if (eq scope.linter "ESLint")}}
+    "justo-plugin-eslint": "*",
+    {{/if}}
     "justo-plugin-fs": "*",
+    {{#if (eq scope.linter "JSHint")}}
     "justo-plugin-jshint": "*",
+    {{/if}}
     "justo-plugin-npm": "*"
   },
   "preferGlobal": false,

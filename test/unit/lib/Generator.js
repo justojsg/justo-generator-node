@@ -1,5 +1,4 @@
 //imports
-const path = require("path");
 const Dir = require("justo-fs").Dir;
 const file = require("justo-assert-fs").file;
 const dir = require("justo-assert-fs").dir;
@@ -36,11 +35,9 @@ suite("Generator", function() {
 
       file(DST, ".editorconfig").must.exist();
       file(DST, ".gitignore").must.exist();
-      file(DST, ".jshintrc").must.exist();
       file(DST, ".travis.yml").must.exist();
       file(DST, "index.js").must.exist();
       file(DST, "Justo.js").must.exist();
-      file(DST, "Justo.json").must.exist();
       file(DST, "package.json").must.exist();
       file(DST, "package.json").json.must.have({main: "index.js"});
       file(DST, "README.md").must.exist();
@@ -55,11 +52,9 @@ suite("Generator", function() {
 
       file(DST, ".editorconfig").must.exist();
       file(DST, ".gitignore").must.exist();
-      file(DST, ".jshintrc").must.exist();
       file(DST, ".travis.yml").must.exist();
       file(DST, "index.js").must.exist();
       file(DST, "Justo.js").must.exist();
-      file(DST, "Justo.json").must.exist();
       file(DST, "package.json").must.exist();
       file(DST, "package.json").json.must.have({main: "bin/test.js"});
       file(DST, "README.md").must.exist();
@@ -69,6 +64,50 @@ suite("Generator", function() {
       dir(DST, "test/unit/lib").must.exist();
       file(DST, "test/unit/index.js").must.exist();
       dir(DST, "bin").must.exist();
+    });
+
+    suite("Linter", function() {
+      test("ESLint", function() {
+        gen.generate({type: "lib", linter: "ESLint"});
+
+        file(DST, ".editorconfig").must.exist();
+        file(DST, ".eslintrc").must.exist();
+        file(DST, ".eslintignore").must.exist();
+        file(DST, ".jshintrc").must.not.exist();
+        file(DST, ".gitignore").must.exist();
+        file(DST, ".travis.yml").must.exist();
+        file(DST, "index.js").must.exist();
+        file(DST, "Justo.js").must.exist();
+        file(DST, "Justo.js").must.contain("justo-plugin-eslint");
+        file(DST, "package.json").must.exist();
+        file(DST, "package.json").json.must.have({main: "index.js"});
+        file(DST, "README.md").must.exist();
+        dir(DST, "test/unit/data").must.exist();
+        dir(DST, "test/unit/lib").must.exist();
+        file(DST, "test/unit/index.js").must.exist();
+        dir(DST, "bin").must.not.exist();
+      });
+
+      test("JSHint", function() {
+        gen.generate({type: "lib", linter: "JSHint"});
+
+        file(DST, ".editorconfig").must.exist();
+        file(DST, ".eslintrc").must.not.exist();
+        file(DST, ".eslintignore").must.not.exist();
+        file(DST, ".jshintrc").must.exist();
+        file(DST, ".gitignore").must.exist();
+        file(DST, ".travis.yml").must.exist();
+        file(DST, "index.js").must.exist();
+        file(DST, "Justo.js").must.exist();
+        file(DST, "Justo.js").must.contain("justo-plugin-jshint");
+        file(DST, "package.json").must.exist();
+        file(DST, "package.json").json.must.have({main: "index.js"});
+        file(DST, "README.md").must.exist();
+        dir(DST, "test/unit/data").must.exist();
+        dir(DST, "test/unit/lib").must.exist();
+        file(DST, "test/unit/index.js").must.exist();
+        dir(DST, "bin").must.not.exist();
+      });
     });
   });
 })();

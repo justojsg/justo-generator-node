@@ -5,7 +5,7 @@ const test = justo.test;
 const Generator = require("../../dist/es5/nodejs/justo-generator-node");
 
 //suite
-suite("index", function() {
+suite("API", function() {
   test("Generator", function() {
     Generator.must.be.instanceOf(Function);
   });

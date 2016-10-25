@@ -4,7 +4,7 @@ const catalog = justo.catalog;
 const babel = require("justo-plugin-babel");
 const copy = require("justo-plugin-fs").copy;
 const clean = require("justo-plugin-fs").clean;
-const jshint = require("justo-plugin-jshint");
+const eslint = require("justo-plugin-eslint");
 const publish = require("justo-plugin-npm").publish;
 const install = require("justo-plugin-npm").install;
 
@@ -14,7 +14,7 @@ catalog.workflow({name: "build", desc: "Build the package"}, function() {
     dirs: ["build/es5"]
   });
 
-  jshint("Best practices and grammar", {
+  eslint("Best practices and grammar", {
     output: true,
     src: [
       "index.js",

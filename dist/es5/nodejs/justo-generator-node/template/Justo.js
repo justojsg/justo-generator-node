@@ -4,7 +4,11 @@ const catalog = justo.catalog;
 const babel = require("justo-plugin-babel");
 const copy = require("justo-plugin-fs").copy;
 const clean = require("justo-plugin-fs").clean;
-const jshint = require("justo-plugin-jshint");
+{{#if (eq scope.linter "ESLint")}}
+const jslint = require("justo-plugin-eslint");
+{{else if (eq scope.linter "JSHint")}}
+const jslint = require("justo-plugin-jshint");
+{{/if}}
 const publish = require("justo-plugin-npm").publish;
 
 //catalog
@@ -13,11 +17,14 @@ catalog.workflow({name: "build", desc: "Build the package"}, function() {
     dirs: ["build/es5"]
   });
 
-  jshint("Best practices and grammar", {
+  jslint("Best practices and grammar", {
     output: true,
     src: [
       "index.js",
       "Justo.js",
+      {{#if (eq scope.type "app")}}
+      "bin/",
+      {{/if}}
       "lib/",
       "test/unit/index.js",
       "test/unit/lib/"
@@ -27,7 +34,7 @@ catalog.workflow({name: "build", desc: "Build the package"}, function() {
   babel("Transpile", {
     comments: false,
     retainLines: true,
-    preset: "es2015",
+    preset: "{{lowercase scope.jsSpec}}",
     files: [
       {src: "index.js", dst: "build/es5/"},
       {src: "lib/", dst: "build/es5/lib"}
@@ -46,8 +53,15 @@ catalog.workflow({name: "build", desc: "Build the package"}, function() {
     },
     {
       src: "build/es5/lib/",
-      dst: "dist/es5/nodejs/{{dir.name}}/lib"
+      dst: "dist/es5/nodejs/{{dir.name}}/lib",
+      force: true
     },
+    {{#if (eq scope.type "app")}}
+    {
+      src: "bin/",
+      dst: "dist/es5/nodejs/{{dir.name}}/bin"
+    },
+    {{/if}}
     {
       src: ["package.json", "README.md"],
       dst: "dist/es5/nodejs/{{dir.name}}/"
