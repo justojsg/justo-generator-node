@@ -43,8 +43,13 @@
     {{/if}}
     "justo-plugin-npm": "*"
   },
-  "preferGlobal": false,
-  "main": "{{iif (eq scope.type 'app') (concat 'bin/' scope.bin) 'index.js'}}",
+  "preferGlobal": {{#if (eq scope.type "app")}}true{{else}}false{{/if}},
+  "main": "index.js",
+  {{#if scope.bin}}
+  "bin": {
+    "{{scope.bin}}": "bin/{{scope.bin}}.js"
+  },
+  {{/if}}
   "files": [
     {{#if (eq scope.type "app")}}
     "bin/",

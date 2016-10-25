@@ -39,16 +39,16 @@ suite("Generator", function() {
       file(DST, "index.js").must.exist();
       file(DST, "Justo.js").must.exist();
       file(DST, "package.json").must.exist();
-      file(DST, "package.json").json.must.have({main: "index.js"});
       file(DST, "README.md").must.exist();
       dir(DST, "test/unit/data").must.exist();
       dir(DST, "test/unit/lib").must.exist();
       file(DST, "test/unit/index.js").must.exist();
       dir(DST, "bin").must.not.exist();
+      file(DST, "package.json").must.not.contain("bin/test.js");
     });
 
     test("generate(answers) - app", function() {
-      gen.generate({type: "app", bin: "test.js"});
+      gen.generate({type: "app", bin: "test"});
 
       file(DST, ".editorconfig").must.exist();
       file(DST, ".gitignore").must.exist();
@@ -56,7 +56,6 @@ suite("Generator", function() {
       file(DST, "index.js").must.exist();
       file(DST, "Justo.js").must.exist();
       file(DST, "package.json").must.exist();
-      file(DST, "package.json").json.must.have({main: "bin/test.js"});
       file(DST, "README.md").must.exist();
       dir(DST, "bin").must.exist();
       file(DST, "bin/test.js").must.exist();
@@ -64,6 +63,7 @@ suite("Generator", function() {
       dir(DST, "test/unit/lib").must.exist();
       file(DST, "test/unit/index.js").must.exist();
       dir(DST, "bin").must.exist();
+      file(DST, "package.json").must.contain(["bin/test.js"]);
     });
 
     suite("Linter", function() {
