@@ -16,6 +16,7 @@
       "error",
       "unix"
     ],
+    "no-unused-vars": "warn",
     "quotes": [
       "off",
       "double",
