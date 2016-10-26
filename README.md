@@ -7,6 +7,8 @@ Generator for *Node.js*.
 
 *Proudly made with ♥ in Valencia, Spain, EU.*
 
+Note. You can learn *Node.js*, in Spanish, on [nodemy.com](http://nodemy.com).
+
 ## Install
 
 ```

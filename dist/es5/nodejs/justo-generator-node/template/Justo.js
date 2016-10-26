@@ -9,7 +9,7 @@ const jslint = require("justo-plugin-eslint");
 {{else if (eq scope.linter "JSHint")}}
 const jslint = require("justo-plugin-jshint");
 {{/if}}
-const publish = require("justo-plugin-npm").publish;
+const npm = require("justo-plugin-npm");
 
 //catalog
 catalog.workflow({name: "build", desc: "Build the package"}, function() {
@@ -75,11 +75,18 @@ catalog.macro({name: "test", desc: "Unit testing"}, {
 });
 
 catalog.workflow({name: "publish", desc: "NPM publish."}, function() {
-  publish("Publish in NPM", {
+  npm.publish("Publish in NPM", {
     {{#if scope.npmWho}}
     who: "{{scope.npmWho}}",
     {{/if}}
     src: "dist/es5/nodejs/{{dir.name}}/"
+  });
+});
+
+catalog.workflow({name: "install", desc: "Install globally."}, function() {
+  npm.install("Install globally", {
+    pkg: "dist/es5/nodejs/{{dir.name}}/",
+    global: true
   });
 });
 
