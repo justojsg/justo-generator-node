@@ -7,12 +7,12 @@ Generator for *Node.js*.
 
 *Proudly made with ♥ in Valencia, Spain, EU.*
 
-Note. You can learn *Node.js*, in Spanish, on [nodemy.com](http://nodemy.com).
+Note. You can learn *Node.js* and this generator, in Spanish, on [nodemy.com](http://nodemy.com).
 
 ## Install
 
 ```
-npm install -g justo-generator-node
+npm install -g justo-cli justo-generator-node
 ```
 
 ## Note
