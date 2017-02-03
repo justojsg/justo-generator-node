@@ -35,7 +35,7 @@ suite("Generator", function() {
 
       file(DST, ".editorconfig").must.exist();
       file(DST, ".gitignore").must.exist();
-      file(DST, ".travis.yml").must.exist();
+      file(DST, ".travis.yml").must.not.exist();
       file(DST, "index.js").must.exist();
       file(DST, "Justo.js").must.exist();
       file(DST, "package.json").must.exist();
@@ -52,7 +52,7 @@ suite("Generator", function() {
 
       file(DST, ".editorconfig").must.exist();
       file(DST, ".gitignore").must.exist();
-      file(DST, ".travis.yml").must.exist();
+      file(DST, ".travis.yml").must.not.exist();
       file(DST, "index.js").must.exist();
       file(DST, "Justo.js").must.exist();
       file(DST, "package.json").must.exist();
@@ -66,6 +66,46 @@ suite("Generator", function() {
       file(DST, "package.json").must.contain(["bin/test.js"]);
     });
 
+    suite("CI", function() {
+      test("Travis CI", function() {
+        gen.generate({type: "lib", ci: "Travis CI"});
+
+        file(DST, ".editorconfig").must.exist();
+        file(DST, ".jshintrc").must.not.exist();
+        file(DST, ".gitignore").must.exist();
+        file(DST, ".travis.yml").must.exist();
+        file(DST, "bitbucket-pipelines.yml").must.not.exist();
+        file(DST, "index.js").must.exist();
+        file(DST, "Justo.js").must.exist();
+        file(DST, "package.json").must.exist();
+        file(DST, "package.json").json.must.have({main: "index.js"});
+        file(DST, "README.md").must.exist();
+        dir(DST, "test/unit/data").must.exist();
+        dir(DST, "test/unit/lib").must.exist();
+        file(DST, "test/unit/index.js").must.exist();
+        dir(DST, "bin").must.not.exist();
+      });
+
+      test("Bitbucket Pipelines", function() {
+        gen.generate({type: "lib", ci: "Bitbucket Pipelines"});
+
+        file(DST, ".editorconfig").must.exist();
+        file(DST, ".jshintrc").must.not.exist();
+        file(DST, ".gitignore").must.exist();
+        file(DST, "bitbucket-pipelines.yml").must.exist();
+        file(DST, ".travis.yml").must.not.exist();
+        file(DST, "index.js").must.exist();
+        file(DST, "Justo.js").must.exist();
+        file(DST, "package.json").must.exist();
+        file(DST, "package.json").json.must.have({main: "index.js"});
+        file(DST, "README.md").must.exist();
+        dir(DST, "test/unit/data").must.exist();
+        dir(DST, "test/unit/lib").must.exist();
+        file(DST, "test/unit/index.js").must.exist();
+        dir(DST, "bin").must.not.exist();
+      });
+    });
+
     suite("Linter", function() {
       test("ESLint", function() {
         gen.generate({type: "lib", linter: "ESLint"});
@@ -75,7 +115,7 @@ suite("Generator", function() {
         file(DST, ".eslintignore").must.exist();
         file(DST, ".jshintrc").must.not.exist();
         file(DST, ".gitignore").must.exist();
-        file(DST, ".travis.yml").must.exist();
+        file(DST, ".travis.yml").must.not.exist();
         file(DST, "index.js").must.exist();
         file(DST, "Justo.js").must.exist();
         file(DST, "Justo.js").must.contain("justo-plugin-eslint");
@@ -96,7 +136,7 @@ suite("Generator", function() {
         file(DST, ".eslintignore").must.not.exist();
         file(DST, ".jshintrc").must.exist();
         file(DST, ".gitignore").must.exist();
-        file(DST, ".travis.yml").must.exist();
+        file(DST, ".travis.yml").must.not.exist();
         file(DST, "index.js").must.exist();
         file(DST, "Justo.js").must.exist();
         file(DST, "Justo.js").must.contain("justo-plugin-jshint");

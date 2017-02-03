@@ -56,6 +56,13 @@ var _justoGenerator = require("justo-generator");function _interopRequireDefault
 
 
 
+
+
+
+
+
+
+
     {
       var entries = this.getEntryNames(".").sort();
 
@@ -63,7 +70,7 @@ var _justoGenerator = require("justo-generator");function _interopRequireDefault
       entries.length == 1 && entries[0] == ".git" ||
       entries.length == 2 && entries[0] == ".git" && entries[1] == "README.md"))
       {
-        return "Destination dir is not empty.";
+        if (!this.responses.overwrite) return "Destination dir is not empty.";
       }
     } }, { key: "prompt", value: function prompt(
 
@@ -71,6 +78,7 @@ var _justoGenerator = require("justo-generator");function _interopRequireDefault
 
 
     answers) {
+      this.input("name");
       this.input("desc");
       this.input("homepage");
 
@@ -84,17 +92,29 @@ var _justoGenerator = require("justo-generator");function _interopRequireDefault
         this.input("contributorUrl");
       }
 
-      if (this.list("type") == "app") {
-        this.input("bin");
-      }
+      if (this.select("type") == "app") this.input("bin");
 
-      this.list("jsSpec");
-      this.list("linter");
+      this.select("jsSpec");
+      this.select("linter");
 
       if (this.input("gitUrl")) {
-        var re = /http[s]:\/\/github\.com\/([^\/]+\/[^\/]+).git/;
-        this.input({ name: "travisCi", default: "https://travis-ci.org/" + re.exec(answers.gitUrl)[1] });
-        this.input({ name: "davidDm", default: "https://david-dm.org/" + re.exec(answers.gitUrl)[1] });
+        switch (this.select("ci")) {
+          case "Bitbucket Pipelines":{
+              break;
+            }
+
+          case "Travis CI":{
+              var re = /http[s]:\/\/github\.com\/([^\/]+\/[^\/]+).git/;
+
+              if (re.test("gitUrl")) {
+                this.input({ name: "travisCi", default: "https://travis-ci.org/" + re.exec(answers.gitUrl)[1] });
+                this.input({ name: "davidDm", default: "https://david-dm.org/" + re.exec(answers.gitUrl)[1] });
+              }
+              break;
+            }}
+
+
+
       }
 
       if (this.input("bugsUrl")) this.input("bugsEmail");
@@ -114,7 +134,8 @@ var _justoGenerator = require("justo-generator");function _interopRequireDefault
         this.copy("_eslintignore", ".eslintignore");
       }
       this.template("_package.json", "package.json", answers);
-      this.copy("_travis.yml", ".travis.yml");
+      if (answers.ci == "Travis CI") this.copy("_travis.yml", ".travis.yml");else
+      if (answers.ci == "Bitbucket Pipelines") this.copy("bitbucket-pipelines.yml");
       this.copy("index.js");
       this.template("Justo.js", answers);
       this.template("README.md", answers);
@@ -127,4 +148,4 @@ var _justoGenerator = require("justo-generator");function _interopRequireDefault
       this.mkdir("test/unit/lib");
       this.template("test/unit/index.js");
       this.mkdirIf(answers.type == "app", "bin");
-    } }, { key: "desc", get: function get() {return "Generator for Node.js.";} }, { key: "params", get: function get() {return { type: { title: "Package type", choices: ["app", "lib"] }, bin: { title: "App command name", default: _path2.default.basename(process.cwd()) }, author: "Author name", authorEmail: "Author email", authorUrl: "Author homepage", contributor: "Contributor name", contributorEmail: "Contributor email", contributorUrl: "Contributor homepage", homepage: "Project homepage", desc: "Project description", jsSpec: { title: "JavaScript spec to use", choices: ["ES2015", "ES2016", "ES2017"], default: "ES2015" }, linter: { title: "Linter", choices: ["<none>", "ESLint", "JSHint"], default: "ESLint" }, npmWho: "NPM user to use for publishing", gitUrl: "Git URL", travisCi: "Travis CI", davidDm: "David DM", bugsUrl: "Bugs URL", bugsEmail: "Bugs email" };} }]);return _class;}(_justoGenerator.HandlebarsGenerator);exports.default = _class;
+    } }, { key: "desc", get: function get() {return "Generator for Node.js.";} }, { key: "params", get: function get() {return { author: "Author name", authorEmail: "Author email", authorUrl: "Author homepage", bin: { title: "App command name", default: _path2.default.basename(process.cwd()) }, bugsUrl: "Bugs URL", bugsEmail: "Bugs email", ci: { title: "Continuous integration", options: ["<none>", "Bitbucket Pipelines", "Travis CI"] }, contributor: "Contributor name", contributorEmail: "Contributor email", contributorUrl: "Contributor homepage", davidDm: "David DM", desc: "Project description", homepage: "Project homepage", gitUrl: "Git URL", jsSpec: { title: "JavaScript spec to use", options: ["ES2015", "ES2016", "ES2017"], default: "ES2015" }, linter: { title: "Linter", options: ["<none>", "ESLint", "JSHint"], default: "ESLint" }, name: { title: "Name", default: _path2.default.basename(process.cwd()) }, npmWho: "NPM user to use for publishing", type: { title: "Package type", options: ["app", "lib"] } };} }]);return _class;}(_justoGenerator.HandlebarsGenerator);exports.default = _class;

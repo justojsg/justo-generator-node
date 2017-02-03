@@ -9,15 +9,17 @@ const jslint = require("justo-plugin-eslint");
 {{else if (eq scope.linter "JSHint")}}
 const jslint = require("justo-plugin-jshint");
 {{/if}}
+const jsonlint = require("justo-plugin-jsonlint");
 const npm = require("justo-plugin-npm");
 
 //catalog
-catalog.workflow({name: "build", desc: "Build the package"}, function() {
-  clean("Remove build directory", {
-    dirs: ["build/es5"]
+const lint = catalog.workflow({name: "lint", desc: "Parse code."}, function() {
+  jsonlint("JSON: .json files", {
+    output: true,
+    src: ["package.json"]
   });
 
-  jslint("Best practices and grammar", {
+  jslint("JavaScript: Best practices and grammar", {
     output: true,
     src: [
       "index.js",
@@ -30,11 +32,25 @@ catalog.workflow({name: "build", desc: "Build the package"}, function() {
       "test/unit/lib/"
     ]
   });
+});
+
+catalog.workflow({name: "build", desc: "Build the package"}, function() {
+  lint("Best practices and grammar");
+
+  clean("Remove build directory", {
+    dirs: ["build/es5"]
+  });
 
   babel("Transpile", {
     comments: false,
     retainLines: true,
-    preset: "{{lowercase scope.jsSpec}}",
+    {{#if (eq scope.jsSpec "ES2015")}}
+    presets: ["es2015"],
+    {{else if (eq scope.jsSpec "ES2016")}}
+    presets: ["es2015", "es2016"],
+    {{else}}
+    presets: ["es2015", "es2016", "es2017"],
+    {{/if}}
     files: [
       {src: "index.js", dst: "build/es5/"},
       {src: "lib/", dst: "build/es5/lib"}

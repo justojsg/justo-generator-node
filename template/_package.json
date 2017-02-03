@@ -1,5 +1,5 @@
 {
-  "name": "{{dir.name}}",
+  "name": "{{scope.name}}",
   "version": "0.1.0",
   "description": "{{scope.desc}}",
   "homepage": "{{http scope.homepage}}",
@@ -25,12 +25,18 @@
     "url": "{{scope.gitUrl}}"
   },
   "engines": {
-    "node": ">= 5.0.0",
+    "node": ">= 7.0.0",
     "npm": ">= 3.0.0"
   },
   "dependencies": {},
   "devDependencies": {
-    "babel-preset-{{lowercase scope.jsSpec}}": "*",
+    "babel-preset-es2015": "*",
+    {{#if (in scope.jsSpec "ES2016" "ES2017")}}
+    "babel-preset-es2016": "*",
+    {{/if}}
+    {{#if (eq scope.jsSpec "ES2017")}}
+    "babel-preset-es2017": "*",
+    {{/if}}
     "justo": "*",
     "justo-assert": "*",
     "justo-plugin-babel": "*",
@@ -41,6 +47,7 @@
     {{#if (eq scope.linter "JSHint")}}
     "justo-plugin-jshint": "*",
     {{/if}}
+    "justo-plugin-jsonlint": "*",
     "justo-plugin-npm": "*"
   },
   "preferGlobal": {{#if (eq scope.type "app")}}true{{else}}false{{/if}},

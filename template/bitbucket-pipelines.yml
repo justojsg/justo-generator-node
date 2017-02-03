@@ -1,0 +1,8 @@
+image: node:7.5.0
+pipelines:
+  default:
+    - step:
+        script:
+          - npm install -g justo-cli
+          - npm install
+          - npm test

@@ -1,6 +1,6 @@
 {
   "name": "justo-generator-node",
-  "version": "0.2.4",
+  "version": "0.3.0",
   "description": "Generator for Node.js.",
   "homepage": "http://justojs.org",
   "author": {
@@ -47,6 +47,7 @@
     "justo-plugin-babel": "*",
     "justo-plugin-fs": "*",
     "justo-plugin-eslint": "*",
+    "justo-plugin-jsonlint": "*",
     "justo-plugin-npm": "*"
   },
   "preferGlobal": true,
